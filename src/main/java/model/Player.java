@@ -1,4 +1,6 @@
-package model;
+package main.java.model;
+//Player.java
+
 
 public class Player {
     private int id;

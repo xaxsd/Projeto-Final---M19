@@ -1,13 +1,19 @@
+// launch.json
 {
-    "version": "0.2.0",
-    "configurations": [
-      {
-        "type": "java",
-        "name": "Launch Main",
-        "request": "launch",
-        "mainClass": "Main",
-        "vmArgs": "--module-path C:/javafx-sdk-17.0.15/lib --add-modules javafx.controls,javafx.fxml"
-      }
-    ]
-  }
-  
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "main.java.Main",
+      "projectName": "Projeto-Final---M19_e39c6e07"
+    },
+    {
+      "type": "java",
+      "name": "Launch Main",
+      "request": "launch",
+      "mainClass": "Main",
+      "vmArgs": "--module-path C:/javafx-sdk-17.0.15/lib --add-modules javafx.controls,javafx.fxml"
+    }
+  ]
+}

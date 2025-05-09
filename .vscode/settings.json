@@ -1,6 +1,7 @@
+// settings.json
 {
-    "java.project.referencedLibraries": [
-      "C:/javafx-sdk-17.0.15/lib/**/*.jar"
-    ]
-  }
-  
+  "java.project.referencedLibraries": [
+      "C:/javafx-sdk-17.0.15/lib/**/*.jar",
+      "C:/Users/Anton/Desktop/connector/mysql-connector-j-9.3.0.jar"
+  ]
+}

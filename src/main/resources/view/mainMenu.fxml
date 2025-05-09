@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mainMenu.fxml -->
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="MainMenuController">  <!-- Без вказівки пакету -->
+    
+    <!-- Фонове зображення -->
+    <background>
+        <Background>
+            <BackgroundImage>
+                <Image url="@../images/menu_bg.jpg" 
+                       preserveRatio="false" 
+                       width="1.0" 
+                       height="1.0"/>
+            </BackgroundImage>
+        </Background>
+    </background>
+    
+    <!-- Верхня частина - логотип -->
+    <top>
+        <StackPane alignment="CENTER" style="-fx-padding: 50;">
+            <ImageView fitWidth="400" fitHeight="150" preserveRatio="true">
+                <Image url="@../images/logo.png"/>
+            </ImageView>
+        </StackPane>
+    </top>
+    
+    <!-- Центральна частина - кнопки меню -->
+    <center>
+        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 50;">
+            <Button id="newGameBtn" text="Нова гра" onAction="#startNewGame"/>
+            <Button id="loadGameBtn" text="Завантажити гру" onAction="#loadGame"/>
+            <Button id="collectionBtn" text="Колекція карт" onAction="#showCollection"/>
+            <Button id="settingsBtn" text="Налаштування" onAction="#showSettings"/>
+            <Button id="exitBtn" text="Вийти" onAction="#exitGame"/>
+        </VBox>
+    </center>
+    
+    <!-- Нижня частина - інформація про гравця -->
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" style="-fx-padding: 20;">
+            <Label id="playerInfo" text="Гравець: %username%" styleClass="player-info"/>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -1,7 +1,13 @@
-// launch.json
 {
   "version": "0.2.0",
   "configurations": [
+    {
+      "type": "java",
+      "name": "LoginScreen",
+      "request": "launch",
+      "mainClass": "app.LoginScreen",
+      "projectName": "Projeto-Final---M19_e39c6e07"
+    },
     {
       "type": "java",
       "name": "LoginScreen",
@@ -18,10 +24,10 @@
     },
     {
       "type": "java",
-      "name": "Launch Main",
+      "name": "Launch App",
       "request": "launch",
-      "mainClass": "main.java.Main",
-      "vmArgs": "--module-path C:/javafx-sdk-17.0.15/lib --add-modules javafx.controls,javafx.fxml",
+      "mainClass": "LoginScreen",
+      "vmArgs": "--module-path \"C:/javafx-sdk-20.0.1/lib\" --add-modules javafx.controls,javafx.fxml",
       "projectName": "Projeto-Final---M19"
     }
   ]

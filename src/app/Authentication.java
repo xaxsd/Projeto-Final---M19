@@ -1,3 +1,4 @@
+// Authentication
 package app;
 
 import model.UserDAO;

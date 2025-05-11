@@ -1,4 +1,5 @@
 package model;
+
 public class Product {
     private int productId;
     private String name;
@@ -7,13 +8,25 @@ public class Product {
     private int quantityInStock;
     private int supplierId;
 
-    public Product() {}
+    // Конструктор без параметрів
+    public Product() {
+        // Можна ініціалізувати поля значеннями за замовчуванням
+        this.productId = 0;
+        this.name = "";
+        this.description = "";
+        this.price = 0.0;
+        this.quantityInStock = 0;
+        this.supplierId = 0;
+    }
 
-    public Product(String name, String description, double price, int quantityInStock, int supplierId) {
-        setName(name);
+    // Конструктор з усіма параметрами
+    public Product(int productId, String name, String description, 
+                  double price, int quantityInStock, int supplierId) {
+        this.productId = productId;
+        this.name = name;
         this.description = description;
-        setPrice(price);
-        setQuantityInStock(quantityInStock);
+        this.price = price;
+        this.quantityInStock = quantityInStock;
         this.supplierId = supplierId;
     }
 

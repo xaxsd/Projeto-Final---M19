@@ -1,7 +1,11 @@
-// settings.json
+// Arquivo settings.json - Configurações do projeto Java no VS Code
 {
+  // Configuração de bibliotecas referenciadas no projeto
   "java.project.referencedLibraries": [
-      "C:/javafx-sdk-17.0.15/lib/**/*.jar",
-      "C:/Users/Anton/Desktop/connector/mysql-connector-j-9.3.0.jar"
+    // 1. Caminho para as bibliotecas do JavaFX (versão 17.0.15)
+    "C:/javafx-sdk-17.0.15/lib/**/*.jar",
+    
+    // 2. Caminho para o driver JDBC do MySQL (versão 9.3.0)
+    "C:/Users/Anton/Desktop/connector/mysql-connector-j-9.3.0.jar"
   ]
 }

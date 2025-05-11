@@ -19,22 +19,19 @@
 
 /* Стилі для звичайного CSS */
 .example {
-    /* Вендорні префікси */
+    font-family: 'Arial', sans-serif; /* Стандартна властивість */
     -webkit-font-smoothing: antialiased; /* Для Webkit-браузерів */
     -moz-osx-font-smoothing: grayscale; /* Для Firefox на MacOS */
-    font-family: 'Arial', sans-serif; /* Стандартна властивість */
 }
 
 .example {
-    /* Вендорні префікси */
+    padding: 10px; /* Стандартна властивість */
     -webkit-padding: 10px; /* Для Webkit-браузерів */
     -moz-padding: 10px; /* Для Firefox */
-    padding: 10px; /* Стандартна властивість */
 }
 
 .example {
-    /* Вендорні префікси */
+    background-color: #fff; /* Стандартна властивість */
     -webkit-background-color: #fff; /* Для Webkit-браузерів */
     -moz-background-color: #fff; /* Для Firefox */
-    background-color: #fff; /* Стандартна властивість */
 }

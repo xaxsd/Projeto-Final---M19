@@ -1,6 +1,16 @@
 {
+  // Versão do esquema de configuração do arquivo launch.json
   "version": "0.2.0",
+  
+  // Array de configurações para execução e depuração
   "configurations": [
+    {
+      "type": "java",
+      "name": "Authentication",
+      "request": "launch",
+      "mainClass": "app.Authentication",
+      "projectName": "Projeto-Final---M19_e39c6e07"
+    },
     {
       "type": "java",
       "name": "LoginScreen",

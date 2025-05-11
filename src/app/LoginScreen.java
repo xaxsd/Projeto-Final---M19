@@ -17,37 +17,45 @@ import javafx.collections.ObservableList;
 import model.Product;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+/**
+ * Aplicação JavaFX para autenticação e gerenciamento de produtos
+ */
 public class LoginScreen extends Application {
 
     private UserDAO userDAO = new UserDAO();
 
+    /**
+     * Método principal de inicialização da interface
+     */
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Система входу");
+        primaryStage.setTitle("Sistema de Login");
 
+        // Layout da tela de login
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text scenetitle = new Text("Ласкаво просимо");
+        // Componentes da interface
+        Text scenetitle = new Text("Bem-vindo");
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
 
-        Label userName = new Label("Ім'я користувача:");
+        Label userName = new Label("Usuário:");
         grid.add(userName, 0, 1);
 
         TextField userTextField = new TextField();
         grid.add(userTextField, 1, 1);
 
-        Label pw = new Label("Пароль:");
+        Label pw = new Label("Senha:");
         grid.add(pw, 0, 2);
 
         PasswordField pwBox = new PasswordField();
         grid.add(pwBox, 1, 2);
 
-        Button btn = new Button("Увійти");
+        Button btn = new Button("Login");
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
@@ -56,24 +64,25 @@ public class LoginScreen extends Application {
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 6);
 
+        // Ação do botão de login
         btn.setOnAction(e -> {
             String username = userTextField.getText();
             String password = pwBox.getText();
 
             if (username.isEmpty() || password.isEmpty()) {
-                actiontarget.setText("Будь ласка, введіть дані!");
+                actiontarget.setText("Por favor, preencha todos os campos!");
                 return;
             }
 
             try {
                 if (userDAO.authenticate(username, password)) {
-                    actiontarget.setText("Вхід успішний!");
+                    actiontarget.setText("Login bem-sucedido!");
                     showProductManagement(primaryStage);
                 } else {
-                    actiontarget.setText("Невірні облікові дані!");
+                    actiontarget.setText("Credenciais inválidas!");
                 }
             } catch (Exception ex) {
-                actiontarget.setText("Помилка підключення до БД");
+                actiontarget.setText("Erro de conexão com o banco de dados");
                 ex.printStackTrace();
             }
         });
@@ -83,6 +92,9 @@ public class LoginScreen extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Exibe a tela de gerenciamento de produtos
+     */
     private void showProductManagement(Stage loginStage) {
         try {
             loginStage.close();
@@ -90,51 +102,49 @@ public class LoginScreen extends Application {
             Stage productStage = new Stage();
             ProductDAO productDAO = new ProductDAO();
             
-            // Створюємо таблицю для відображення продуктів
+            // Configuração da tabela de produtos
             TableView<Product> table = new TableView<>();
             
-            // Колонки таблиці
+            // Colunas da tabela
             TableColumn<Product, Integer> idColumn = new TableColumn<>("ID");
             idColumn.setCellValueFactory(new PropertyValueFactory<>("productId"));
             
-            TableColumn<Product, String> nameColumn = new TableColumn<>("Назва");
+            TableColumn<Product, String> nameColumn = new TableColumn<>("Nome");
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
             
-            TableColumn<Product, String> descColumn = new TableColumn<>("Опис");
+            TableColumn<Product, String> descColumn = new TableColumn<>("Descrição");
             descColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
             
-            TableColumn<Product, Double> priceColumn = new TableColumn<>("Ціна");
+            TableColumn<Product, Double> priceColumn = new TableColumn<>("Preço");
             priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
             
-            TableColumn<Product, Integer> stockColumn = new TableColumn<>("Кількість");
+            TableColumn<Product, Integer> stockColumn = new TableColumn<>("Estoque");
             stockColumn.setCellValueFactory(new PropertyValueFactory<>("quantityInStock"));
             
-            TableColumn<Product, Integer> supplierColumn = new TableColumn<>("Постачальник");
+            TableColumn<Product, Integer> supplierColumn = new TableColumn<>("Fornecedor");
             supplierColumn.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
             
             table.getColumns().addAll(idColumn, nameColumn, descColumn, priceColumn, stockColumn, supplierColumn);
             
-            // Оновлення даних у таблиці
+            // Carrega os produtos do banco de dados
             ObservableList<Product> products = FXCollections.observableArrayList(productDAO.getAllProducts());
             table.setItems(products);
             
-            // Кнопки для керування
-            Button addBtn = new Button("Додати");
-            Button editBtn = new Button("Редагувати");
-            Button deleteBtn = new Button("Видалити");
-            Button refreshBtn = new Button("Оновити");
+            // Botões de controle
+            Button addBtn = new Button("Adicionar");
+            Button editBtn = new Button("Editar");
+            Button deleteBtn = new Button("Remover");
+            Button refreshBtn = new Button("Atualizar");
             
-            // Обробники подій для кнопок
-            addBtn.setOnAction(e -> {
-                showProductDialog(null, productDAO, products);
-            });
+            // Configura ações dos botões
+            addBtn.setOnAction(e -> showProductDialog(null, productDAO, products));
             
             editBtn.setOnAction(e -> {
                 Product selected = table.getSelectionModel().getSelectedItem();
                 if (selected != null) {
                     showProductDialog(selected, productDAO, products);
                 } else {
-                    showAlert("Попередження", "Будь ласка, виберіть продукт для редагування");
+                    showAlert("Aviso", "Selecione um produto para editar");
                 }
             });
             
@@ -143,40 +153,43 @@ public class LoginScreen extends Application {
                 if (selected != null) {
                     if (productDAO.deleteProduct(selected.getProductId())) {
                         products.remove(selected);
-                        showAlert("Успіх", "Продукт успішно видалено");
+                        showAlert("Sucesso", "Produto removido com sucesso");
                     } else {
-                        showAlert("Помилка", "Не вдалося видалити продукт");
+                        showAlert("Erro", "Falha ao remover produto");
                     }
                 } else {
-                    showAlert("Попередження", "Будь ласка, виберіть продукт для видалення");
+                    showAlert("Aviso", "Selecione um produto para remover");
                 }
             });
             
-            refreshBtn.setOnAction(e -> {
-                products.setAll(productDAO.getAllProducts());
-            });
+            refreshBtn.setOnAction(e -> products.setAll(productDAO.getAllProducts()));
             
+            // Layout dos botões
             HBox buttonBox = new HBox(10, addBtn, editBtn, deleteBtn, refreshBtn);
             buttonBox.setAlignment(Pos.CENTER);
             
+            // Layout principal
             VBox root = new VBox(20, table, buttonBox);
             root.setPadding(new Insets(20));
             
             Scene scene = new Scene(root, 800, 600);
-            productStage.setTitle("Управління продуктами");
+            productStage.setTitle("Gerenciamento de Produtos");
             productStage.setScene(scene);
             productStage.show();
             
         } catch (Exception e) {
             e.printStackTrace();
-            showAlert("Помилка", "Не вдалося відкрити модуль управління продуктами");
+            showAlert("Erro", "Falha ao abrir o módulo de produtos");
             loginStage.show();
         }
     }
     
+    /**
+     * Exibe diálogo para adicionar/editar produto
+     */
     private void showProductDialog(Product product, ProductDAO productDAO, ObservableList<Product> products) {
         Stage dialog = new Stage();
-        dialog.setTitle(product == null ? "Додати продукт" : "Редагувати продукт");
+        dialog.setTitle(product == null ? "Novo Produto" : "Editar Produto");
         
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -184,14 +197,14 @@ public class LoginScreen extends Application {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
         
-        // Поля форми
+        // Campos do formulário
         TextField nameField = new TextField();
         TextArea descField = new TextArea();
         TextField priceField = new TextField();
         TextField stockField = new TextField();
         TextField supplierField = new TextField();
         
-        // Якщо редагуємо існуючий продукт - заповнюємо поля
+        // Preenche campos se for edição
         if (product != null) {
             nameField.setText(product.getName());
             descField.setText(product.getDescription());
@@ -200,19 +213,20 @@ public class LoginScreen extends Application {
             supplierField.setText(String.valueOf(product.getSupplierId()));
         }
         
-        // Додаємо поля на форму
-        grid.add(new Label("Назва:"), 0, 0);
+        // Adiciona campos ao formulário
+        grid.add(new Label("Nome:"), 0, 0);
         grid.add(nameField, 1, 0);
-        grid.add(new Label("Опис:"), 0, 1);
+        grid.add(new Label("Descrição:"), 0, 1);
         grid.add(descField, 1, 1);
-        grid.add(new Label("Ціна:"), 0, 2);
+        grid.add(new Label("Preço:"), 0, 2);
         grid.add(priceField, 1, 2);
-        grid.add(new Label("Кількість:"), 0, 3);
+        grid.add(new Label("Estoque:"), 0, 3);
         grid.add(stockField, 1, 3);
-        grid.add(new Label("ID постачальника:"), 0, 4);
+        grid.add(new Label("ID Fornecedor:"), 0, 4);
         grid.add(supplierField, 1, 4);
         
-        Button saveBtn = new Button("Зберегти");
+        // Botão de salvar
+        Button saveBtn = new Button("Salvar");
         saveBtn.setOnAction(e -> {
             try {
                 Product p = product != null ? product : new Product();
@@ -233,14 +247,14 @@ public class LoginScreen extends Application {
                 
                 if (success) {
                     dialog.close();
-                    showAlert("Успіх", "Дані успішно збережено");
+                    showAlert("Sucesso", "Dados salvos com sucesso");
                 } else {
-                    showAlert("Помилка", "Не вдалося зберегти дані");
+                    showAlert("Erro", "Falha ao salvar dados");
                 }
             } catch (NumberFormatException ex) {
-                showAlert("Помилка", "Невірний формат числових даних");
+                showAlert("Erro", "Formato numérico inválido");
             } catch (Exception ex) {
-                showAlert("Помилка", "Сталася помилка при збереженні");
+                showAlert("Erro", "Falha ao processar operação");
                 ex.printStackTrace();
             }
         });
@@ -252,6 +266,9 @@ public class LoginScreen extends Application {
         dialog.show();
     }
     
+    /**
+     * Exibe mensagem de alerta
+     */
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);

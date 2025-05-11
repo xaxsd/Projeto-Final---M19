@@ -1,0 +1,40 @@
+/* Стилі для JavaFX */
+.root {
+    -fx-font-family: "Arial";
+    -fx-padding: 20;
+}
+
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}
+
+.text-field {
+    -fx-padding: 10;
+}
+
+/* Стилі для звичайного CSS */
+.example {
+    /* Вендорні префікси */
+    -webkit-font-smoothing: antialiased; /* Для Webkit-браузерів */
+    -moz-osx-font-smoothing: grayscale; /* Для Firefox на MacOS */
+    font-family: 'Arial', sans-serif; /* Стандартна властивість */
+}
+
+.example {
+    /* Вендорні префікси */
+    -webkit-padding: 10px; /* Для Webkit-браузерів */
+    -moz-padding: 10px; /* Для Firefox */
+    padding: 10px; /* Стандартна властивість */
+}
+
+.example {
+    /* Вендорні префікси */
+    -webkit-background-color: #fff; /* Для Webkit-браузерів */
+    -moz-background-color: #fff; /* Для Firefox */
+    background-color: #fff; /* Стандартна властивість */
+}
